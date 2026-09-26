@@ -1,0 +1,22 @@
+{
+  "name": "spicyapi-nsfw",
+  "owner": {
+    "name": "SpicyAPI",
+    "url": "https://spicyapi.ai"
+  },
+  "metadata": {
+    "description": "SpicyAPI skills for adult (18+) AI image and video generation.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "nsfw-ai",
+      "description": "Generate adult images, NSFW image-to-video clips, uncensored edits and uncensored text with SpicyAPI.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SpicyAPI"
+      },
+      "source": "./"
+    }
+  ]
+}

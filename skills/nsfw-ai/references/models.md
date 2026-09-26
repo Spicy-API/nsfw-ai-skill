@@ -1,0 +1,52 @@
+# Model reference (SpicyAPI catalog, read 2026-09-27)
+
+Prices are USD and are the listed tier for the resolution shown. The quote returned by `spicy.py quote` / `generate` is always authoritative. Model IDs must be copied exactly.
+
+## Spicy image-to-video (adult-tuned editions)
+
+| Model ID | Duration | Resolution → price per output second | Notable fields |
+|---|---|---|---|
+| `alibaba/wan-2.2-spicy/image-to-video` | 5 or 8 | 480p $0.019 · 720p $0.038 | `prompt` required, `last_image_url`, `enable_prompt_expansion`, `seed` |
+| `alibaba/wan-2.2-spicy-lora/image-to-video` | 5 or 8 | 480p $0.024 · 720p $0.048 | `loras`, `high_noise_loras`, `low_noise_loras` (≤3 each, `{path, scale}`) |
+| `alibaba/wan-2.2-spicy-lora/video-extend` | 5 or 8 | 480p $0.038 · 720p $0.076 | `video_url` + `prompt`, same LoRA fields |
+| `lightricks/ltx-2.3-spicy/image-to-video` | 3–20 | 480p $0.019 · 720p $0.038 · 1080p $0.057 | `preset` (`tuned`/`original`), prompt optional |
+| `lightricks/ltx-2.3-spicy-lora/image-to-video` | 3–20 | 480p $0.0285 · 720p $0.0475 · 1080p $0.0665 | `loras` presets |
+| `bytedance/seedance-1.5-pro-spicy/image-to-video` | 4–12 | 480p $0.012 (audio $0.024) · 720p $0.026 · 1080p $0.052 | `camera_fixed`, `aspect_ratio`, `last_image_url` |
+| `bytedance/seedance-2.0-mini-spicy/image-to-video` | 4–15 | 480p $0.0387 · 720p $0.0821 | `generate_audio`, `aspect_ratio`, `last_image_url` |
+| `bytedance/seedance-2.0-fast-spicy/image-to-video` | 4–15 | 480p $0.081 · 720p $0.1742 | sound included |
+| `bytedance/seedance-2.0-spicy/image-to-video` | 4–15 | 480p $0.114 · 720p $0.228 · 1080p $0.57 · 4K $1.14 | `aspect_ratio`, `last_image_url` |
+| `bytedance/seedance-2.5-spicy/image-to-video` | 4–30 | 480p $0.216 · 720p $0.432 · 1080p $1.08 · 4K $2.16 | `generate_audio`, `last_image_url` |
+| `minimax/h3-spicy/image-to-video` | 3–15 | 480p $0.038 · 540p $0.057 · 768p $0.084 · 1080p $0.152 | prompt optional, `last_image_url` |
+| `vidu/q3-spicy/image-to-video` | 1–16 | 540p $0.0665 · 720p $0.1425 · 1080p $0.152 | `movement_amplitude` (`auto/small/medium/large`), `generate_audio` |
+| `alibaba/wan-2.6-spicy/image-to-video` | 5, 10 or 15 | 720p $0.095 · 1080p $0.1425 | `shot_type` (`single/multi`), `audio_url`, `negative_prompt` |
+| `alibaba/wan-2.7-spicy/image-to-video` | 2–15 | 720p $0.1235 · 1080p $0.19 | `prompt` required, `generate_audio`, `audio_url`, `negative_prompt` |
+
+Seedance `aspect_ratio` accepts `16:9, 9:16, 4:3, 3:4, 1:1, 21:9, adaptive`. Other models follow the first frame's shape.
+
+## Images and edits
+
+| Model ID | Price | Size fields |
+|---|---|---|
+| `alibaba/z-image-spicy/text-to-image` | $0.01235 (prompt expansion on: $0.0133) | `width`, `height` 256–1536 |
+| `alibaba/z-image-spicy-pro/text-to-image` | $0.019 | `width`, `height` 256–2560 |
+| `prefect/pony-xl/text-to-image` | $0.015 | `size` one of `1024*1024, 896*1152, 1152*896, 832*1216, 1216*832, 768*1344, 1344*768`; tag-style prompt |
+| `alibaba/qwen-image-spicy-edit/edit` | $0.038 | `image_url` + `prompt` (one instruction, no mask) |
+
+## Useful non-Spicy tools
+
+`spicyapi/image-upscaler-v1/upscale` ($0.012/image), `spicyapi/video-upscaler-v1/upscale` ($0.006/s), `spicyapi/image-expander-v1/edit` ($0.024), `spicyapi/lip-sync-v1/lip-sync` ($0.012/s), `spicyapi/foley-v1/video-to-audio` ($0.0012/s), `spicyapi/talking-avatar-v1/talking-avatar` ($0.018/s).
+
+Face/head/character swap models exist (`spicyapi/face-swap-v1/edit`, `spicyapi/character-swap-v1/video-analyze` + `video-edit`), but **never** use them to place a real person into sexual content without documented consent. Video swaps are two separately billed tasks; tell the user before the first one.
+
+## Text (OpenAI-compatible, `https://api.spicyapi.ai/v1/chat/completions`)
+
+Catalog tier `unrestricted` on 2026-09-27 includes `xai/grok-4.7/chat` ($0.0036/1K tokens), `deepseek/v4-pro/chat`, `deepseek/v4.1-flash/chat` ($0.0012), `zai/glm-5.3-flash/chat` ($0.000425), `moonshot/kimi-k3/chat`.
+
+## Choosing quickly
+
+- Drafts and volume: Wan 2.2 Spicy or LTX 2.3 Spicy at 480p.
+- Cinemagraph, locked camera: Seedance 1.5 Pro Spicy with `camera_fixed: true`.
+- Final quality: Seedance 2.0 Spicy (≤15 s) or Seedance 2.5 Spicy (≤30 s).
+- Anime: Prefect Pony XL still → Vidu Q3 Spicy.
+- Custom style/character: Wan 2.2 Spicy LoRA; continue with `video-extend`.
+- Audio: Seedance 2.x (`generate_audio`), Wan 2.7 Spicy, or Wan 2.6/2.7 with your own `audio_url`.

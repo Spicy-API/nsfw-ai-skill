@@ -1,0 +1,13 @@
+{
+  "name": "nsfw-ai",
+  "version": "1.0.0",
+  "description": "Generate adult (18+) images, NSFW image-to-video clips, uncensored edits and uncensored text with SpicyAPI's Spicy models (Wan 2.2 Spicy, Seedance Spicy, MiniMax H3 Spicy, Z-Image Spicy) from Claude Code.",
+  "author": {
+    "name": "SpicyAPI",
+    "url": "https://spicyapi.ai"
+  },
+  "homepage": "https://github.com/Spicy-API/nsfw-ai-skill",
+  "repository": "https://github.com/Spicy-API/nsfw-ai-skill",
+  "license": "MIT",
+  "keywords": ["nsfw", "uncensored", "image-to-video", "ai-video", "ai-image", "wan-2.2-spicy", "seedance", "spicyapi", "adult", "skill"]
+}
