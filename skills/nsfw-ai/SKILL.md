@@ -50,8 +50,8 @@ Picks follow SpicyAPI's published tests (https://spicyapi.ai/leaderboards, metho
 | Need | Model ID | From | Tested |
 |---|---|---|---|
 | **Best all-round NSFW video** (T2V / I2V / Ref2V, 2–30 s, sound) | `alibaba/wan-3.0/text-to-video`, `.../image-to-video`, `.../reference-to-video` | $0.045/s (480p) | Index 76.5, Freedom 96, explicit 9/9 |
-| Explicit video from a still, Spicy edition | `bytedance/seedance-2.5-spicy/image-to-video` (4–30 s, up to 4K) | $0.216/s | Freedom 96.7, explicit 3/3 |
-| Explicit I2V with generated audio | `alibaba/wan-2.7-spicy/image-to-video` | $0.1235/s (720p) | Freedom 100 |
+| Uncensored video from a still, Spicy edition | `bytedance/seedance-2.5-spicy/image-to-video` (4–30 s, up to 4K) | $0.216/s | Freedom 96.7, explicit 3/3 |
+| Uncensored I2V with generated audio | `alibaba/wan-2.7-spicy/image-to-video` | $0.1235/s (720p) | Freedom 100 |
 | Anime / stylised motion | `vidu/q3-spicy/image-to-video` | $0.0665/s (540p) | Freedom 96.7 |
 | Your own LoRAs on video | `minimax/h3-lora/image-to-video` (also T2V, Ref2V); `minimax/h3-singularity-lora/...` for fast action | $0.05/s | Freedom 98.3 / 100 |
 | Long script that must stay on script (T2V / Ref2V) | `bytedance/seedance-2.5/text-to-video`, `.../reference-to-video` | $0.1234/s | Index 69.5, Freedom 80.9, explicit 8/9 |
