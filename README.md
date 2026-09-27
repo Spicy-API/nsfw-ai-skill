@@ -317,4 +317,8 @@ Adults only. No sexual content involving anyone under 18 or who appears under 18
 
 [MIT](LICENSE)
 
+<p align="center">
+  <a href="https://aiagentsdirectory.com" target="_blank" rel="noopener" title="Discover AI Agents Directory"><img src="https://aiagentsdirectory.com/featured-badge.svg?v=2024" alt="Featured on AI Agents Directory" width="200" height="50" /></a>
+</p>
+
 <p align="center"><sub>⭐ Star the repo if it saved you an afternoon of API docs.</sub></p>
