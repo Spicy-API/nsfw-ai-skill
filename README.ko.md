@@ -310,6 +310,7 @@ SpicyAPI 카탈로그(2026-09-27) 기준으로 노골적 테스트를 통과한 
 ## 관련 저장소
 
 - **[awesome-nsfw-ai](https://github.com/Spicy-API/awesome-nsfw-ai/blob/main/README.ko.md)**: 무검열 AI 이미지·영상·텍스트 도구, API, 모델을 엄선한 목록.
+- **[nsfw-ai-image-prompts](https://github.com/Spicy-API/nsfw-ai-image-prompts/blob/main/README.ko.md)**: NSFW 이미지·편집 프롬프트 104개와 실제 결과물 사례.
 - **[nsfw-ai-video-prompts](https://github.com/Spicy-API/nsfw-ai-video-prompts/blob/main/README.ko.md)**: NSFW 영상 프롬프트 100개 이상, 첫 프레임 프롬프트, 검증된 예시.
 - **[spicy-skill](https://github.com/Spicy-API/spicy-skill)**: SpicyAPI 공식 범용 스킬.
 

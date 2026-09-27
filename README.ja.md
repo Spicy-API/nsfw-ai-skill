@@ -321,6 +321,7 @@ SpicyAPI のカタログ（2026-09-27）で、露骨なテストに合格した�
 ## 関連リポジトリ
 
 - **[awesome-nsfw-ai](https://github.com/Spicy-API/awesome-nsfw-ai/blob/main/README.ja.md)**：無修正の AI 画像・動画・テキストツール、API、モデルをまとめたリスト。
+- **[nsfw-ai-image-prompts](https://github.com/Spicy-API/nsfw-ai-image-prompts/blob/main/README.ja.md)**：NSFW 画像プロンプトと編集プロンプト 104 本、実際の出力例付き。
 - **[nsfw-ai-video-prompts](https://github.com/Spicy-API/nsfw-ai-video-prompts/blob/main/README.ja.md)**：NSFW 動画プロンプト 100 本以上、開始フレーム用プロンプト、検証済みの例。
 - **[spicy-skill](https://github.com/Spicy-API/spicy-skill)**：SpicyAPI 公式の汎用スキル。
 

@@ -310,6 +310,7 @@ Solo adultos. Nada de contenido sexual que involucre a menores de 18 años o a q
 ## Relacionados
 
 - **[awesome-nsfw-ai](https://github.com/Spicy-API/awesome-nsfw-ai/blob/main/README.es.md)**: lista seleccionada de herramientas, APIs y modelos de IA sin censura para imagen, video y texto.
+- **[nsfw-ai-image-prompts](https://github.com/Spicy-API/nsfw-ai-image-prompts/blob/main/README.es.md)**: 104 prompts NSFW de imagen y de edición, con casos de resultados reales.
 - **[nsfw-ai-video-prompts](https://github.com/Spicy-API/nsfw-ai-video-prompts/blob/main/README.es.md)**: más de 100 prompts de video NSFW, prompts para el primer fotograma y ejemplos verificados.
 - **[spicy-skill](https://github.com/Spicy-API/spicy-skill)**: la skill oficial de uso general de SpicyAPI.
 
