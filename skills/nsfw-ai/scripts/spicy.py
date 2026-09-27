@@ -71,8 +71,7 @@ def http_json(method: str, url: str, body: Any = None, headers: dict[str, str] |
         hdrs["Authorization"] = f"Bearer {api_key()}"
     req = urllib.request.Request(url, data=data, method=method, headers=hdrs)
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            payload = json.loads(resp.read().decode("utf-8") or "{}")
+        payload = _send_with_retry(req, timeout)
     except urllib.error.HTTPError as err:
         raw = err.read().decode("utf-8", "replace")
         try:
@@ -84,12 +83,28 @@ def http_json(method: str, url: str, body: Any = None, headers: dict[str, str] |
         if retry:
             msg += f" (retry after {retry}s)"
         raise SpicyError(msg, code=payload.get("code", err.code), request_id=payload.get("request_id")) from None
-    except urllib.error.URLError as err:
-        raise SpicyError(f"Network error calling {url}: {err.reason}") from None
+    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as err:
+        raise SpicyError(f"Network error calling {url}: {getattr(err, 'reason', err)}") from None
     if isinstance(payload, dict) and "code" in payload and payload["code"] not in (0, 200):
         raise SpicyError(payload.get("msg", "request failed"), code=payload["code"],
                          request_id=payload.get("request_id"))
     return payload
+
+
+def _send_with_retry(req: urllib.request.Request, timeout: int, attempts: int = 3) -> Any:
+    """Retry transport failures (TLS resets, timeouts). Task creation carries an
+    Idempotency-Key, so repeating it can never create a second task or charge."""
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return json.loads(resp.read().decode("utf-8") or "{}")
+        except urllib.error.HTTPError:
+            raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+            if attempt == attempts - 1:
+                raise
+            time.sleep(1.5 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 def data_of(payload: Any) -> Any:

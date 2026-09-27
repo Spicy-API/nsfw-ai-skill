@@ -63,7 +63,9 @@ If `SPICY_API_KEY` is missing, tell the user to create one at https://spicyapi.a
 | Uncensored image edit (one instruction) | `alibaba/qwen-image-spicy-edit/edit` | $0.038/image |
 | Uncensored chat / prompt writing | `xai/grok-4.7/chat`, `deepseek/v4.1-flash/chat` | per 1K tokens |
 
-Prices are the cheapest tier on 2026-09-27; `schema` and the quote are authoritative. More detail: [references/models.md](references/models.md).
+Prices are the cheapest tier on 2026-09-27; `schema` and the quote are authoritative.
+
+Non-Spicy models work the same way. For SFW or softer requests, or tasks the Spicy editions don't cover (text-to-video, reference-to-video, upscaling, lip sync), use any model ID from `python3 scripts/spicy.py models` (drop `--spicy`), e.g. `bytedance/seedance-2.5/text-to-video`, `alibaba/wan-3.0/image-to-video`, `bytedance/seedream-5.0-pro/text-to-image`, `spicyapi/video-upscaler-v1/upscale`. More detail: [references/models.md](references/models.md).
 
 ## Commands
 

@@ -139,6 +139,15 @@ class HttpTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, 40004)
         self.assertEqual(ctx.exception.request_id, "req_1")
 
+    def test_transport_errors_are_retried(self):
+        ok = mock.MagicMock()
+        ok.__enter__.return_value.read.return_value = b'{"code":200,"data":{"ok":true}}'
+        flaky = [urllib.error.URLError("tls reset"), urllib.error.URLError("tls reset"), ok]
+        with mock.patch.dict(os.environ, {"SPICY_API_KEY": "sk-spicy-test"}), \
+                mock.patch.object(spicy.urllib.request, "urlopen", side_effect=flaky), \
+                mock.patch.object(spicy.time, "sleep"):
+            self.assertEqual(spicy.http_json("GET", "https://x")["data"], {"ok": True})
+
     def test_models_filter(self):
         catalog = {"code": 200, "data": {"items": [
             {"model": "a/wan-spicy/image-to-video", "familyDisplayName": "Wan Spicy", "modality": "video",

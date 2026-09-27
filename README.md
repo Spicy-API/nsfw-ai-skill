@@ -28,10 +28,10 @@
 </p>
 
 <p align="center">
-  <a href="https://cdn.spicyapi.ai/models/examples/wan-2-2-spicy/3d2ca819ea4a2a2d.mp4"><img src="https://cdn.spicyapi.ai/models/examples/wan-2-2-spicy/09b64da6d082ebd5.webp" width="30%" alt="Wan 2.2 Spicy image-to-video example"></a>
-  <a href="https://cdn.spicyapi.ai/models/examples/seedance-2-0-spicy/fd580ae58de668b5.mp4"><img src="https://cdn.spicyapi.ai/models/examples/seedance-2-0-spicy/70a660518169a0b0.webp" width="30%" alt="Seedance 2.0 Spicy image-to-video example"></a>
-  <a href="https://cdn.spicyapi.ai/models/examples/wan-2-7-spicy/131308db4dc88808.mp4"><img src="https://cdn.spicyapi.ai/models/examples/wan-2-7-spicy/7f8323f5babcb15b.webp" width="30%" alt="Wan 2.7 Spicy image-to-video example"></a>
-  <br><sub>Real outputs from the models this skill calls (Wan 2.2 Spicy, Seedance 2.0 Spicy, Wan 2.7 Spicy). Click to play.</sub>
+  <a href="https://cdn.spicyapi.ai/models/examples/wan-2-2-spicy/3d2ca819ea4a2a2d.mp4"><img src="assets/one-pace-closer.gif" width="30%" alt="Wan 2.2 Spicy image-to-video example"></a>
+  <a href="https://cdn.spicyapi.ai/models/examples/seedance-2-0-spicy/fd580ae58de668b5.mp4"><img src="assets/velvet-spiral-turn.gif" width="30%" alt="Seedance 2.0 Spicy image-to-video example"></a>
+  <a href="https://cdn.spicyapi.ai/models/examples/wan-2-7-spicy/131308db4dc88808.mp4"><img src="assets/silk-draught-pull.gif" width="30%" alt="Wan 2.7 Spicy image-to-video example"></a>
+  <br><sub>Real outputs from the models this skill calls (Wan 2.2 Spicy, Seedance 2.0 Spicy, Wan 2.7 Spicy). Click for the full clip.</sub>
 </p>
 
 > **18+ only.** The skill refuses sexual content involving minors or anyone who appears to be a minor, sexual content of real people without documented consent (including face swaps and "undressing" photos), and impersonation. It writes every prompt with an explicit adult age.
@@ -44,6 +44,7 @@
 - **Spicy models that actually allow adult output.** Uses [SpicyAPI](https://spicyapi.ai/?utm_source=github&utm_medium=repo&utm_campaign=2026-09-nsfw-ai-skill&utm_content=why)'s Spicy editions (Wan 2.2 Spicy, Seedance 2.x Spicy, MiniMax H3 Spicy, LTX 2.3 Spicy, Vidu Q3 Spicy, Z-Image Spicy, Qwen Image Edit Spicy). SpicyAPI adds no platform filter of its own on top of the model.
 - **You see the price before anything runs.** Every generation is quoted first; the agent only proceeds after you approve (or within a budget you set). Failed tasks are refunded automatically.
 - **Cheap.** NSFW video from **$0.012–$0.019 per second**, NSFW images from **$0.01235**. USD balance, no subscription, card or crypto.
+- **Every model in the catalog, not only Spicy ones.** The same commands run Seedance 2.5, Wan 3.0, Seedream 5.0, Qwen Image, upscalers, lip sync and the chat models; pass any model ID from `spicy.py models`.
 - **Zero dependencies.** One Python file using only the standard library. Works anywhere Python 3.9+ runs.
 - **Private by design.** Your API key stays in an environment variable. Prompts, uploads and outputs have retention clocks you can shorten on SpicyAPI.
 
@@ -238,6 +239,9 @@ On SpicyAPI's catalog (2026-09-27): Seedance 1.5 Pro Spicy from $0.012/s (480p, 
 
 ### Is there a free NSFW AI skill?
 The skill is free and open source (MIT). Generation is paid per output on SpicyAPI because GPUs cost money; there is no subscription and failed tasks are refunded. For free generation, run open-weight models locally (see [awesome-nsfw-ai](https://github.com/Spicy-API/awesome-nsfw-ai#self-hosted-and-open-weight-models)).
+
+### Can it call models that are not "Spicy"?
+Yes. The Spicy editions are the default for adult requests, but `spicy.py` accepts any model ID in the SpicyAPI catalog: standard Seedance / Wan / MiniMax video models, Seedream / Qwen / Wan image models, upscalers, face and lip-sync tools, and text models via `chat`. Run `spicy.py models` (without `--spicy`) to list them.
 
 ### Does it work with MCP?
 Yes. Use the skill alone, or add the official SpicyAPI MCP server (`@spicyapi/mcp`) alongside it.
