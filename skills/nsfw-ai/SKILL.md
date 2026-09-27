@@ -1,6 +1,6 @@
 ---
 name: nsfw-ai
-description: Generate adult (NSFW, 18+) images and videos, uncensored image edits and uncensored text with SpicyAPI's Spicy models (Wan 2.2 Spicy, Seedance 2.x Spicy, MiniMax H3 Spicy, LTX 2.3 Spicy, Vidu Q3 Spicy, Z-Image Spicy, Qwen Image Edit Spicy) and unrestricted-tier LLMs. Use when the user asks to create NSFW, adult, uncensored, spicy, boudoir, lingerie, nude-art or erotic AI images or videos, animate an image into an NSFW video (image-to-video), edit an image without content filters, write or improve NSFW video prompts, estimate the cost of adult AI generation, or batch-generate adult content through an API. Enforces adults-only and consent rules.
+description: Generate adult (NSFW, 18+) images and videos, uncensored image edits and uncensored text with SpicyAPI (Seedance 2.5 / 2.0 and their Spicy editions, Wan 3.0, Wan 2.x Spicy, MiniMax H3 Spicy, LTX 2.3 Spicy, Vidu Q3 Spicy, Qwen Image 2.1, Z-Image Spicy) and unrestricted-tier LLMs. Use when the user asks to create NSFW, adult, uncensored, spicy, boudoir, lingerie, nude-art or erotic AI images or videos, animate an image into an NSFW video (image-to-video), edit an image without content filters, write or improve NSFW video prompts, estimate the cost of adult AI generation, or batch-generate adult content through an API. Enforces adults-only and consent rules.
 license: MIT
 metadata:
   version: "1.0.0"
@@ -38,7 +38,7 @@ If `SPICY_API_KEY` is missing, tell the user to create one at https://spicyapi.a
 
 1. **Understand the ask.** Image or video? From text, or from an existing image? Budget or best quality? Anime or photoreal?
 2. **Pick the model** with the table below, or list live options: `python3 scripts/spicy.py models --spicy --modality video`.
-3. **Read the live schema once** before building input: `python3 scripts/spicy.py schema <model>`. Use only fields that exist; respect enums (resolution, duration). Never guess a model ID; take it from `models`.
+3. **Read the live schema once** before building input: `python3 scripts/spicy.py schema <model>`. Use only fields that exist; respect enums (resolution, duration). Single-image fields map to `--image` / `--last-image`; multi-reference arrays (`image_urls`) map to repeated `--images`. Never guess a model ID; take it from `models`.
 4. **Write the prompt** with the recipe in [references/prompting.md](references/prompting.md). For image-to-video, describe only what changes from the first frame.
 5. **Quote and confirm.** `generate` quotes first and stops with `needs_confirmation`. Show the user the estimated cost and max charge, and re-run with `--yes` only after they agree. If the user already gave a budget, use `--max-cost <usd>` instead.
 6. **Report** the saved file paths, the model, the final cost, the task ID and the idempotency key.
@@ -47,20 +47,23 @@ If `SPICY_API_KEY` is missing, tell the user to create one at https://spicyapi.a
 
 | Need | Model ID | From |
 |---|---|---|
-| NSFW video from an image, cheapest | `alibaba/wan-2.2-spicy/image-to-video` (exactly 5 or 8 s) | $0.019/s at 480p |
-| Long take on a budget (up to 20 s) | `lightricks/ltx-2.3-spicy/image-to-video` | $0.019/s at 480p |
-| Locked camera / cinemagraph | `bytedance/seedance-1.5-pro-spicy/image-to-video` (`camera_fixed`) | $0.012/s at 480p |
+| Top-quality NSFW video from an image (4–30 s) | `bytedance/seedance-2.5-spicy/image-to-video` | $0.216/s at 480p |
+| Text-to-video or reference-to-video, mature allowed | `bytedance/seedance-2.5/text-to-video`, `.../reference-to-video` (standard, `unrestricted`) | $0.1234/s |
+| High quality, up to 4K, first + last frame | `bytedance/seedance-2.0-spicy/image-to-video` | $0.114/s at 480p |
+| Newest Wan, T2V / I2V / Ref2V up to 30 s | `alibaba/wan-3.0/text-to-video` etc. (standard, `unrestricted`) | $0.045/s |
 | Natural body motion | `minimax/h3-spicy/image-to-video` | $0.038/s at 480p |
-| Best motion per dollar, first + last frame | `bytedance/seedance-2.0-mini-spicy/image-to-video` | $0.0387/s at 480p |
-| High quality, up to 4K | `bytedance/seedance-2.0-spicy/image-to-video` | $0.114/s at 480p |
-| Top quality, 4–30 s | `bytedance/seedance-2.5-spicy/image-to-video` | $0.216/s at 480p |
+| Best motion per dollar | `bytedance/seedance-2.0-mini-spicy/image-to-video` | $0.0387/s at 480p |
+| Audio track, negative prompt | `alibaba/wan-2.7-spicy/image-to-video`, `alibaba/wan-2.6-spicy/image-to-video` | $0.1235/s, $0.095/s at 720p |
+| Long take on a budget (up to 20 s) | `lightricks/ltx-2.3-spicy/image-to-video` | $0.019/s at 480p |
 | Anime / stylised motion | `vidu/q3-spicy/image-to-video` | $0.0665/s at 540p |
+| Locked camera / cinemagraph, cheapest | `bytedance/seedance-1.5-pro-spicy/image-to-video` (`camera_fixed`) | $0.012/s at 480p |
+| Cheap drafts, exactly 5 or 8 s | `alibaba/wan-2.2-spicy/image-to-video` | $0.019/s at 480p |
 | Custom LoRA styles, extend a clip | `alibaba/wan-2.2-spicy-lora/image-to-video`, `.../video-extend` | $0.024/s at 480p |
-| Audio track, negative prompt | `alibaba/wan-2.6-spicy/image-to-video`, `alibaba/wan-2.7-spicy/image-to-video` | $0.095/s, $0.1235/s at 720p |
-| NSFW image from text | `alibaba/z-image-spicy/text-to-image` | $0.01235/image |
-| Higher-detail NSFW image (to 2560 px) | `alibaba/z-image-spicy-pro/text-to-image` | $0.019/image |
+| **NSFW image (recommended)** | `alibaba/qwen-image-2.1/text-to-image` (`aspect_ratio`, `resolution` 1k/1.5k/2k) | $0.024/image |
+| Image with your own LoRAs | `alibaba/qwen-image-2.1-lora/text-to-image` | $0.03/image |
+| Uncensored image edit | `alibaba/qwen-image-2.1/edit` (1–10 reference images) or `alibaba/qwen-image-spicy-edit/edit` | $0.036 / $0.038 |
+| Cheapest NSFW image | `alibaba/z-image-spicy/text-to-image` (`width`/`height` ≤1536) | $0.01235/image |
 | Anime still | `prefect/pony-xl/text-to-image` (tag-style prompt) | $0.015/image |
-| Uncensored image edit (one instruction) | `alibaba/qwen-image-spicy-edit/edit` | $0.038/image |
 | Uncensored chat / prompt writing | `xai/grok-4.7/chat`, `deepseek/v4.1-flash/chat` | per 1K tokens |
 
 Prices are the cheapest tier on 2026-09-27; `schema` and the quote are authoritative.
@@ -70,10 +73,10 @@ Non-Spicy models work the same way. For SFW or softer requests, or tasks the Spi
 ## Commands
 
 ```bash
-# Text → image
-python3 scripts/spicy.py generate alibaba/z-image-spicy/text-to-image \
+# Text → image (recommended model)
+python3 scripts/spicy.py generate alibaba/qwen-image-2.1/text-to-image \
   --prompt "Photorealistic boudoir portrait of a woman in her early 30s in black lace lingerie, window light" \
-  --set width=832 --set height=1216
+  --set aspect_ratio=2:3 --set resolution=1k
 
 # Image → video (local files are uploaded automatically)
 python3 scripts/spicy.py generate alibaba/wan-2.2-spicy/image-to-video \
@@ -86,9 +89,10 @@ python3 scripts/spicy.py generate bytedance/seedance-2.0-spicy/image-to-video \
   --image start.jpg --last-image end.jpg --prompt "Smooth continuous turn toward the camera" \
   --set duration_seconds=5 --set resolution=720p
 
-# Uncensored edit
-python3 scripts/spicy.py generate alibaba/qwen-image-spicy-edit/edit \
-  --image ./portrait.png --prompt "Change the outfit to a red satin slip dress, keep the face and lighting"
+# Uncensored edit (Qwen Image 2.1 takes 1–10 references via repeated --images)
+python3 scripts/spicy.py generate alibaba/qwen-image-2.1/edit \
+  --images ./portrait.png --prompt "Change the outfit to a red satin slip dress, keep the face and lighting"
+# single-image alternative: alibaba/qwen-image-spicy-edit/edit with --image
 
 # After the user approves the quote, add --yes (or --max-cost 1.50)
 # Check a task later / download

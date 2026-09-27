@@ -47,9 +47,11 @@ class InputTests(unittest.TestCase):
     def test_build_input_merges_flags(self):
         ns = spicy.main.__globals__["argparse"].Namespace(
             input_file=None, input='{"seed": 1}', set=["duration_seconds=5", "resolution=720p"],
-            prompt="hello", image="https://example.com/a.jpg", last_image=None, video=None, audio=None)
+            prompt="hello", image="https://example.com/a.jpg", last_image=None, video=None, audio=None,
+            images=["https://example.com/r1.jpg", "spicy://f/fil_2"])
         self.assertEqual(spicy.build_input(ns), {"seed": 1, "duration_seconds": 5, "resolution": "720p",
-                                                 "prompt": "hello", "image_url": "https://example.com/a.jpg"})
+                                                 "prompt": "hello", "image_url": "https://example.com/a.jpg",
+                                                 "image_urls": ["https://example.com/r1.jpg", "spicy://f/fil_2"]})
 
     def test_bad_set_and_missing_file(self):
         code, _, err = run(["quote", "m", "--set", "novalue"])

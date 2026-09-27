@@ -27,10 +27,17 @@ Seedance `aspect_ratio` accepts `16:9, 9:16, 4:3, 3:4, 1:1, 21:9, adaptive`. Oth
 
 | Model ID | Price | Size fields |
 |---|---|---|
+| `alibaba/qwen-image-2.1/text-to-image` (**recommended**, tier `unrestricted`) | $0.024 at 1k, $0.048 at 1.5k/2k | `aspect_ratio` (15 options), `resolution` `1k/1.5k/2k`; prompt up to 5,000 chars |
+| `alibaba/qwen-image-2.1/edit` | $0.036 at 1k | 1–10 reference images + instruction |
+| `alibaba/qwen-image-2.1-lora/text-to-image` / `.../edit` | $0.03 / $0.042 at 1k | up to 3 LoRAs |
 | `alibaba/z-image-spicy/text-to-image` | $0.01235 (prompt expansion on: $0.0133) | `width`, `height` 256–1536 |
 | `alibaba/z-image-spicy-pro/text-to-image` | $0.019 | `width`, `height` 256–2560 |
 | `prefect/pony-xl/text-to-image` | $0.015 | `size` one of `1024*1024, 896*1152, 1152*896, 832*1216, 1216*832, 768*1344, 1344*768`; tag-style prompt |
 | `alibaba/qwen-image-spicy-edit/edit` | $0.038 | `image_url` + `prompt` (one instruction, no mask) |
+
+## Standard video models with catalog tier `unrestricted`
+
+Use these for text-to-video and reference-to-video, which the Spicy editions don't offer. In catalog order: `bytedance/seedance-2.5/{text-to-video,image-to-video,reference-to-video}` ($0.1234/s), `bytedance/seedance-2.0/...` ($0.07/s), `alibaba/wan-3.0-prime/...` ($0.0612/s), `alibaba/wan-3.0/...` ($0.045/s, 2–30 s), `minimax/h3/...` ($0.025/s), `lightricks/ltx-2.5/...`, `alibaba/wan-3.0-pro/...`, `minimax/h3-lora/...`, `bytedance/seedance-2.0-mini/...`, `bytedance/seedance-2.0-fast/...`. Reference-to-video takes character/scene images referenced as `@Image1`, `@Image2` in the prompt; read the schema first.
 
 ## Useful non-Spicy tools
 

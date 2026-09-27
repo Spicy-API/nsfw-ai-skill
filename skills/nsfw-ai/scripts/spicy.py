@@ -139,6 +139,8 @@ def build_input(args: argparse.Namespace) -> dict[str, Any]:
         value = getattr(args, field, None)
         if value:
             payload[f"{field}_url"] = resolve_media(value)
+    if getattr(args, "images", None):
+        payload["image_urls"] = [resolve_media(v) for v in args.images]
     return payload
 
 
@@ -356,6 +358,8 @@ def add_input_flags(p: argparse.ArgumentParser) -> None:
     p.add_argument("model", help="exact model ID from the catalog, e.g. alibaba/wan-2.2-spicy/image-to-video")
     p.add_argument("--prompt", "-p", help="sets input.prompt")
     p.add_argument("--image", help="URL, spicy:// URI or local file for input.image_url (local files are uploaded)")
+    p.add_argument("--images", action="append", metavar="URL_OR_FILE",
+                   help="repeatable; fills input.image_urls for multi-reference models (e.g. qwen-image-2.1/edit)")
     p.add_argument("--last-image", dest="last_image", help="URL or local file for input.last_image_url")
     p.add_argument("--video", help="URL or local file for input.video_url")
     p.add_argument("--audio", help="URL or local file for input.audio_url")
