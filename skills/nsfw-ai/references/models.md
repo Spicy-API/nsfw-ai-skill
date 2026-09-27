@@ -1,5 +1,28 @@
 # Model reference (SpicyAPI catalog, read 2026-09-27)
 
+Test results below come from the public SpicyAPI leaderboards (https://spicyapi.ai/leaderboards, methodology v2.1, runs 2026-09-14 → 2026-09-27) and the review verdicts on https://spicyapi.ai/reviews. Freedom = weighted pass rate over five explicitness levels; "explicit x/y" = L4 test prompts that rendered as asked.
+
+## Tested verdicts (one line each)
+
+- **Wan 3.0**: Index 76.5, Freedom 96, explicit 9/9. Cheap 30-second takes with sound from text, a still or references; it can go further than the prompt, jobs take ~3.5 min, Ref2V refuses real faces.
+- **Wan 3.0 Prime / Pro / Pro Prime**: same capability (76.5), Freedom 78–82; Prime is faster for T2V/Ref2V at +36%.
+- **MiniMax H3 LoRA / Singularity LoRA**: Freedom 98.3 / 100; your own weights, three LoRAs per call. Singularity for fast action and distant faces.
+- **MiniMax H3 (standard)**: all 14 test clips came back as asked; Freedom 33.3 reflects missing coverage, not refusals. Cheapest uncensored H3.
+- **Seedance 2.5 / 2.5 Spicy**: base 2.5 stays on script for long takes (explicit 8/9); the Spicy edition goes further on the hardest levels (Freedom 96.7) but costs more.
+- **Seedance 2.0 (standard)**: highest capability (81.5) but softens explicit prompts (1/9); use Seedance 2.0 Spicy (Freedom 93.3) for adult work.
+- **Wan 2.7 Spicy**: Freedom 100, audio in one file; no text or reference input, 15 s max.
+- **Wan 2.2 Spicy**: cheapest Wan Spicy with a closing frame; the hardest level softens sometimes.
+- **LTX 2.3 Spicy**: 3–20 s from an opening frame; top level softens more often than Wan Spicy.
+- **Qwen Image 2.1**: Index 73, Freedom 96.3; uncensored T2I and 10-reference editing at $0.024. **Qwen Image 2.1 LoRA** posted the cleaner ladder (Index 80.5).
+- **MiniMax H3 Image LoRA**: Freedom 100; your LoRAs on an uncensored still model.
+- **Seedream 5.0 Pro / Lite**: photographic finish / multi-photo edits; Freedom 94.3 / 96.
+- **Qwen Image 3.0 / 3.0 Pro**: pick for legible lettering; Freedom 96 / 98.
+- **Z-Image Spicy / Spicy Pro**: cheap, fast uncensored stills at exact sizes (≤1536 / ≤2560 px); weaker anatomy.
+- **Qwen Image Edit Spicy**: fast single-photo edit, no setup; not for multiple references.
+- **Grok 4.7 / 4.3**: uncensored fiction and roleplay with no jailbreak (Freedom 100 / 98.9); 4.3 is cheaper with a huge context.
+- **DeepSeek V4.1 Flash**: cheap long-context reads; add a system prompt to steady intimate scenes.
+
+
 Prices are USD and are the listed tier for the resolution shown. The quote returned by `spicy.py quote` / `generate` is always authoritative. Model IDs must be copied exactly.
 
 ## Spicy image-to-video (adult-tuned editions)

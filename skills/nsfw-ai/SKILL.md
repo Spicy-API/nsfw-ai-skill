@@ -45,26 +45,29 @@ If `SPICY_API_KEY` is missing, tell the user to create one at https://spicyapi.a
 
 ## Model picker
 
-| Need | Model ID | From |
-|---|---|---|
-| Top-quality NSFW video from an image (4–30 s) | `bytedance/seedance-2.5-spicy/image-to-video` | $0.216/s at 480p |
-| Text-to-video or reference-to-video, mature allowed | `bytedance/seedance-2.5/text-to-video`, `.../reference-to-video` (standard, `unrestricted`) | $0.1234/s |
-| High quality, up to 4K, first + last frame | `bytedance/seedance-2.0-spicy/image-to-video` | $0.114/s at 480p |
-| Newest Wan, T2V / I2V / Ref2V up to 30 s | `alibaba/wan-3.0/text-to-video` etc. (standard, `unrestricted`) | $0.045/s |
-| Natural body motion | `minimax/h3-spicy/image-to-video` | $0.038/s at 480p |
-| Best motion per dollar | `bytedance/seedance-2.0-mini-spicy/image-to-video` | $0.0387/s at 480p |
-| Audio track, negative prompt | `alibaba/wan-2.7-spicy/image-to-video`, `alibaba/wan-2.6-spicy/image-to-video` | $0.1235/s, $0.095/s at 720p |
-| Long take on a budget (up to 20 s) | `lightricks/ltx-2.3-spicy/image-to-video` | $0.019/s at 480p |
-| Anime / stylised motion | `vidu/q3-spicy/image-to-video` | $0.0665/s at 540p |
-| Locked camera / cinemagraph, cheapest | `bytedance/seedance-1.5-pro-spicy/image-to-video` (`camera_fixed`) | $0.012/s at 480p |
-| Cheap drafts, exactly 5 or 8 s | `alibaba/wan-2.2-spicy/image-to-video` | $0.019/s at 480p |
-| Custom LoRA styles, extend a clip | `alibaba/wan-2.2-spicy-lora/image-to-video`, `.../video-extend` | $0.024/s at 480p |
-| **NSFW image (recommended)** | `alibaba/qwen-image-2.1/text-to-image` (`aspect_ratio`, `resolution` 1k/1.5k/2k) | $0.024/image |
-| Image with your own LoRAs | `alibaba/qwen-image-2.1-lora/text-to-image` | $0.03/image |
-| Uncensored image edit | `alibaba/qwen-image-2.1/edit` (1–10 reference images) or `alibaba/qwen-image-spicy-edit/edit` | $0.036 / $0.038 |
-| Cheapest NSFW image | `alibaba/z-image-spicy/text-to-image` (`width`/`height` ≤1536) | $0.01235/image |
-| Anime still | `prefect/pony-xl/text-to-image` (tag-style prompt) | $0.015/image |
-| Uncensored chat / prompt writing | `xai/grok-4.7/chat`, `deepseek/v4.1-flash/chat` | per 1K tokens |
+Picks follow SpicyAPI's published tests (https://spicyapi.ai/leaderboards, methodology v2.1, 2026-09-27). Freedom = how reliably each explicitness level (L1 suggestive → L5 extreme) renders as asked; Index = preliminary capability score.
+
+| Need | Model ID | From | Tested |
+|---|---|---|---|
+| **Best all-round NSFW video** (T2V / I2V / Ref2V, 2–30 s, sound) | `alibaba/wan-3.0/text-to-video`, `.../image-to-video`, `.../reference-to-video` | $0.045/s (480p) | Index 76.5, Freedom 96, explicit 9/9 |
+| Explicit video from a still, Spicy edition | `bytedance/seedance-2.5-spicy/image-to-video` (4–30 s, up to 4K) | $0.216/s | Freedom 96.7, explicit 3/3 |
+| Explicit I2V with generated audio | `alibaba/wan-2.7-spicy/image-to-video` | $0.1235/s (720p) | Freedom 100 |
+| Anime / stylised motion | `vidu/q3-spicy/image-to-video` | $0.0665/s (540p) | Freedom 96.7 |
+| Your own LoRAs on video | `minimax/h3-lora/image-to-video` (also T2V, Ref2V); `minimax/h3-singularity-lora/...` for fast action | $0.05/s | Freedom 98.3 / 100 |
+| Long script that must stay on script (T2V / Ref2V) | `bytedance/seedance-2.5/text-to-video`, `.../reference-to-video` | $0.1234/s | Index 69.5, Freedom 80.9, explicit 8/9 |
+| Cheapest that passes explicit tests | `alibaba/wan-2.6-flash/image-to-video` · `bytedance/seedance-1.5-pro-spicy/image-to-video` (`camera_fixed`) | $0.0225/s · $0.012/s | Freedom 100 · 96.7 |
+| Cheap bulk video, prompt optional | `minimax/h3/image-to-video` (standard) or `minimax/h3-spicy/image-to-video` | $0.025/s · $0.038/s | 14/14 test clips as asked (coverage incomplete) · Freedom 97.5 |
+| Drafts, exactly 5 or 8 s, closing frame | `alibaba/wan-2.2-spicy/image-to-video` | $0.019/s | Freedom 91.2; top level softens sometimes |
+| Continue a clip with the same LoRAs | `alibaba/wan-2.2-spicy-lora/video-extend` | $0.038/s | Freedom 74.8 |
+| **NSFW image (recommended)** | `alibaba/qwen-image-2.1/text-to-image` (`aspect_ratio`, `resolution` 1k/1.5k/2k) | $0.024/image | Index 73, Freedom 96.3 |
+| Image with your own LoRAs (incl. anime) | `alibaba/qwen-image-2.1-lora/text-to-image` · `minimax/h3-image-lora/text-to-image` | $0.03 · $0.042 | Index 80.5 (#1) / 74.5, Freedom 92 / 100 |
+| Photographic finish | `bytedance/seedream-5.0-pro/text-to-image` | $0.036 | Freedom 94.3 |
+| Lettering in the image | `alibaba/qwen-image-3.0-pro/text-to-image` | $0.04 | Freedom 98 |
+| Uncensored image edit | `alibaba/qwen-image-2.1/edit` (1–10 refs, `--images`) · `alibaba/qwen-image-spicy-edit/edit` (one photo, fast) | $0.036 · $0.038 | Freedom 96.3 · 96 |
+| Cheapest NSFW image | `alibaba/z-image-spicy/text-to-image` (`width`/`height` ≤1536) | $0.01235 | Freedom 98.8, lower capability |
+| Uncensored chat / prompt writing | `xai/grok-4.7/chat` · `xai/grok-4.3/chat` (cheaper, fastest) | per 1K tokens | Freedom 100 · 98.9 |
+
+Avoid for explicit requests (tests show softening): standard `seedance-2.0` / `-fast` / `-mini` (use their Spicy editions), `happyhorse-1.1`, `wan-2.2` standard, `wan-2.7` and `krea-2` text-to-image; for text, Claude, Gemini, GLM and Kimi models. Tell the user when a request would do better on a Spicy edition.
 
 Prices are the cheapest tier on 2026-09-27; `schema` and the quote are authoritative.
 
