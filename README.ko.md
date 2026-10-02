@@ -5,7 +5,7 @@
   nsfw ai skill, nsfw agent skill, claude code nsfw, uncensored ai skill, nsfw ai api, codex skill, openclaw skill, spicyapi
 -->
 
-<p align="center"><a href="README.md">English</a> · <a href="README.ja.md">日本語</a> · <b>한국어</b> · <a href="README.fr.md">Français</a> · <a href="README.es.md">Español</a></p>
+<p align="center"><a href="README.md">English</a> · <a href="README.ja.md">日本語</a> · <b>한국어</b> · <a href="README.fr.md">Français</a> · <a href="README.es.md">Español</a> · <a href="README.ru.md">Русский</a></p>
 
 <h1 align="center">NSFW AI Skill</h1>
 
